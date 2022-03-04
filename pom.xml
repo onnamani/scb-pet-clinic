@@ -14,7 +14,7 @@
 	</parent>
 	<groupId>ng.com.smartcity</groupId>
 	<artifactId>scb-pet-clinic</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>scb-pet-clinic</name>
 	<description>Pet Clinic Project</description>
 	<properties>
@@ -39,6 +39,7 @@
 						<checkModificationExcludes>
 							<checkModificationExclude>pom.xml</checkModificationExclude>
 						</checkModificationExcludes>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -47,7 +48,7 @@
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:onnamani/scb-pet-clinic.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>scb-pet-clinic-0.0.3</tag>
   </scm>
 
 </project>
