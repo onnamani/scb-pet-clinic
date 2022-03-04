@@ -24,3 +24,7 @@ hs_err_pid*
 /HELP.md
 .idea
 /.idea/
+*.iml
+/pet-clinic-data/target
+/pet-clinic-web/target
+/scb-pet-clinic.iml
