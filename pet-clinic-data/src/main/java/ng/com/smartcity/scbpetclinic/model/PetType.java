@@ -1,6 +1,6 @@
 package ng.com.smartcity.scbpetclinic.model;
 
-public class PetType {
+public class PetType extends BaseEntity {
 
     private String name;
 
