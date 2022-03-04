@@ -14,7 +14,7 @@
 	</parent>
 	<groupId>ng.com.smartcity</groupId>
 	<artifactId>scb-pet-clinic</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>scb-pet-clinic</name>
 	<description>Pet Clinic Project</description>
 	<properties>
@@ -47,7 +47,7 @@
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:onnamani/scb-pet-clinic.git</developerConnection>
-	  <tag>0.0.3</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 </project>
