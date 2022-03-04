@@ -28,3 +28,8 @@ hs_err_pid*
 /pet-clinic-data/target
 /pet-clinic-web/target
 /scb-pet-clinic.iml
+/pet-clinic-data/pom.xml.releaseBackup
+/pet-clinic-web/.DS_Store
+/pet-clinic-web/pom.xml.releaseBackup
+pom.xml.releaseBackup
+release.properties
