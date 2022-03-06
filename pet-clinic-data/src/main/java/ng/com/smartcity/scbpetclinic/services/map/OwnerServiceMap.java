@@ -21,6 +21,9 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner save(Owner object) {
+        if(object != null && object.getId() == null)
+            object.setId(this.getNextId());
+        else throw new RuntimeException("Owner cannot be empty");
         return map.put(object.getId(), object);
     }
 

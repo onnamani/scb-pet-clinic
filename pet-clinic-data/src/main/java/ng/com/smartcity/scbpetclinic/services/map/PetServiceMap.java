@@ -20,6 +20,9 @@ public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetS
 
     @Override
     public Pet save(Pet object) {
+        if(object != null && object.getId() == null)
+            object.setId(this.getNextId());
+        else throw new RuntimeException("Pet cannot be empty");
         return map.put(object.getId(), object);
     }
 
