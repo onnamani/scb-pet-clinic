@@ -1,10 +1,12 @@
 package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Owner;
+import ng.com.smartcity.scbpetclinic.services.OwnerService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> {
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return new HashSet<>(map.values());
@@ -28,5 +30,13 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> {
     @Override
     public void deleteById(Long id) {
         map.remove(id);
+    }
+
+    @Override
+    public Owner findByLastName(String LastName) {
+        return map.entrySet()
+                .stream().filter(entry -> entry.getValue().getLastName().equals(LastName))
+                .collect(Collectors.toList())
+                .get(0).getValue();
     }
 }

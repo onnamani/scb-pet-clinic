@@ -1,10 +1,11 @@
 package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Vet;
+import ng.com.smartcity.scbpetclinic.services.VetService;
 
 import java.util.*;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return new HashSet<>(map.values());
