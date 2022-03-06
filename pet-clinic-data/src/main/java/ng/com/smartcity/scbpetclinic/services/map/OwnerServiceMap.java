@@ -2,10 +2,12 @@ package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Owner;
 import ng.com.smartcity.scbpetclinic.services.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {

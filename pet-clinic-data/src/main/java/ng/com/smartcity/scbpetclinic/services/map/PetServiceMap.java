@@ -2,9 +2,11 @@ package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Pet;
 import ng.com.smartcity.scbpetclinic.services.PetService;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
     @Override
     public Set<Pet> findAll() {

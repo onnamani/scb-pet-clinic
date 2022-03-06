@@ -4,8 +4,6 @@ import ng.com.smartcity.scbpetclinic.model.Owner;
 import ng.com.smartcity.scbpetclinic.model.Vet;
 import ng.com.smartcity.scbpetclinic.services.OwnerService;
 import ng.com.smartcity.scbpetclinic.services.VetService;
-import ng.com.smartcity.scbpetclinic.services.map.OwnerServiceMap;
-import ng.com.smartcity.scbpetclinic.services.map.VetServiceMap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +13,9 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public DataLoader() {
-        ownerService = new OwnerServiceMap();
-        vetService = new VetServiceMap();
+    public DataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
