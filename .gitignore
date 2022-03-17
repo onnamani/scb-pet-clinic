@@ -34,3 +34,7 @@ hs_err_pid*
 pom.xml.releaseBackup
 release.properties
 /target
+.DS_Store
+pet-clinic-web/src/.DS_Store
+pet-clinic-web/src/main/.DS_Store
+pet-clinic-web/src/main/resources/.DS_Store
