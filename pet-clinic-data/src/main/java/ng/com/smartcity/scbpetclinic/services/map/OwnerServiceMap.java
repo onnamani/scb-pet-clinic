@@ -45,7 +45,7 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
                 .filter(pet -> pet.getPetType().getId() == null)
                 .forEach(pet -> {
                     pet.setPetType(petTypeService.save(pet.getPetType()));
-                    pet = petService.save(pet);
+                    pet.setId(petService.save(pet).getId());
                 });
         return map.put(object.getId(), object);
     }

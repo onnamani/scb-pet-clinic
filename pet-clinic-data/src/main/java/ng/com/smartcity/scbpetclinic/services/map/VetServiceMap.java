@@ -1,13 +1,23 @@
 package ng.com.smartcity.scbpetclinic.services.map;
 
+import ng.com.smartcity.scbpetclinic.model.Speciality;
 import ng.com.smartcity.scbpetclinic.model.Vet;
+import ng.com.smartcity.scbpetclinic.services.SpecialtyService;
 import ng.com.smartcity.scbpetclinic.services.VetService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+
+    private final SpecialtyService specialtyService;
+
+    public VetServiceMap(SpecialtyService specialtyService) {
+        this.specialtyService = specialtyService;
+    }
+
     @Override
     public Set<Vet> findAll() {
         return new HashSet<>(map.values());
@@ -24,6 +34,12 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
             throw new RuntimeException("Vet cannot be empty");
         if (object.getId() == null)
             object.setId(this.getNextId());
+        if(object.getSpecialities().size() > 0){
+            Stream<Speciality> specialityStream = object.getSpecialities().stream();
+            specialityStream
+                    .filter(speciality -> speciality.getId().equals(null))
+                    .forEach(speciality -> speciality.setId(specialtyService.save(speciality).getId()));
+        }
 
         return map.put(object.getId(), object);
     }
