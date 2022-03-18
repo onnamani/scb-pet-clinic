@@ -47,7 +47,8 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
                     pet.setPetType(petTypeService.save(pet.getPetType()));
                     pet.setId(petService.save(pet).getId());
                 });
-        return map.put(object.getId(), object);
+        map.put(object.getId(), object);
+        return map.get(object.getId());
     }
 
     @Override

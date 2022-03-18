@@ -23,7 +23,8 @@ public class PetTypeMapService extends AbstractMapService<PetType, Long> impleme
         if (object != null && object.getId() == null)
             object.setId(this.getNextId());
         else throw new RuntimeException("PetType cannot be empty");
-        return map.put(object.getId(), object);
+        map.put(object.getId(), object);
+        return map.get(object.getId());
     }
 
     @Override

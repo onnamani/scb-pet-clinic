@@ -24,8 +24,8 @@ public class SpecialtyServiceMap extends AbstractMapService<Speciality, Long> im
             throw new RuntimeException("Speciality cannot be empty");
         if(object.getId() == null)
             object.setId(this.getNextId());
-
-        return map.put(object.getId(), object);
+        map.put(object.getId(), object);
+        return map.get(object.getId());
     }
 
     @Override

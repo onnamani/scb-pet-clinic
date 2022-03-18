@@ -34,10 +34,10 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
             throw new RuntimeException("Vet cannot be empty");
         if (object.getId() == null)
             object.setId(this.getNextId());
-        if(object.getSpecialities().size() > 0){
-            Stream<Speciality> specialityStream = object.getSpecialities().stream();
+        if(object.getSpecialties().size() > 0) {
+            Stream<Speciality> specialityStream = object.getSpecialties().stream();
             specialityStream
-                    .filter(speciality -> speciality.getId().equals(null))
+                    .filter(speciality -> speciality.getId() == null)
                     .forEach(speciality -> speciality.setId(specialtyService.save(speciality).getId()));
         }
 
