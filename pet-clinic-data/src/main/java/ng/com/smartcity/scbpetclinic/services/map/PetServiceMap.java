@@ -2,12 +2,20 @@ package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Pet;
 import ng.com.smartcity.scbpetclinic.services.PetService;
+import ng.com.smartcity.scbpetclinic.services.PetTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
+
+    private final PetTypeService petTypeService;
+
+    public PetServiceMap(PetTypeService petTypeService) {
+        this.petTypeService = petTypeService;
+    }
+
     @Override
     public Set<Pet> findAll() {
         return new HashSet<>(map.values());
@@ -20,9 +28,15 @@ public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetS
 
     @Override
     public Pet save(Pet object) {
-        if(object != null && object.getId() == null)
+        if (object == null)
+            throw new RuntimeException("Pet cannot be empty");
+        if(object.getId() == null)
             object.setId(this.getNextId());
-        else throw new RuntimeException("Pet cannot be empty");
+        else if(object.getPetType() == null)
+            throw new RuntimeException("Pet must have a pet type");
+        else if(object.getPetType().getId() == null)
+            object.setPetType(petTypeService.save(object.getPetType()));
+
         return map.put(object.getId(), object);
     }
 

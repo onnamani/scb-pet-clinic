@@ -1,14 +1,27 @@
 package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Owner;
+import ng.com.smartcity.scbpetclinic.model.Pet;
 import ng.com.smartcity.scbpetclinic.services.OwnerService;
+import ng.com.smartcity.scbpetclinic.services.PetService;
+import ng.com.smartcity.scbpetclinic.services.PetTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+
+    private final PetTypeService petTypeService;
+    private final PetService petService;
+
+    public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
+        this.petTypeService = petTypeService;
+        this.petService = petService;
+    }
+
     @Override
     public Set<Owner> findAll() {
         return new HashSet<>(map.values());
@@ -21,9 +34,19 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner save(Owner object) {
-        if(object != null && object.getId() == null)
+        if (object == null)
+            throw new RuntimeException("Owner cannot be empty");
+        if (object.getId() == null)
             object.setId(this.getNextId());
-        else throw new RuntimeException("Owner cannot be empty");
+
+        Stream<Pet> petStream = object.getPets().stream();
+        petStream
+                .filter(pet -> pet.getId() == null)
+                .filter(pet -> pet.getPetType().getId() == null)
+                .forEach(pet -> {
+                    pet.setPetType(petTypeService.save(pet.getPetType()));
+                    pet = petService.save(pet);
+                });
         return map.put(object.getId(), object);
     }
 

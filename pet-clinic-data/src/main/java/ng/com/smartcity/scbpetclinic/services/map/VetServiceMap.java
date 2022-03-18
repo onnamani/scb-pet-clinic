@@ -22,7 +22,7 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
     public Vet save(Vet object) {
         if (object != null && object.getId() == null)
             object.setId(this.getNextId());
-        else throw new RuntimeException("Vet cannot be empty");
+        else return null;
         return map.put(object.getId(), object);
     }
 
