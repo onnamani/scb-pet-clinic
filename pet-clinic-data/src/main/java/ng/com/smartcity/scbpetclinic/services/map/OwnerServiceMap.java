@@ -5,6 +5,7 @@ import ng.com.smartcity.scbpetclinic.model.Pet;
 import ng.com.smartcity.scbpetclinic.services.OwnerService;
 import ng.com.smartcity.scbpetclinic.services.PetService;
 import ng.com.smartcity.scbpetclinic.services.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,13 +13,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
-    private final PetTypeService petTypeService;
     private final PetService petService;
 
-    public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
-        this.petTypeService = petTypeService;
+    public OwnerServiceMap(PetService petService) {
         this.petService = petService;
     }
 
@@ -42,11 +42,7 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
         Stream<Pet> petStream = object.getPets().stream();
         petStream
                 .filter(pet -> pet.getId() == null)
-                .filter(pet -> pet.getPetType().getId() == null)
-                .forEach(pet -> {
-                    pet.setPetType(petTypeService.save(pet.getPetType()));
-                    pet.setId(petService.save(pet).getId());
-                });
+                .forEach(pet -> pet.setId(petService.save(pet).getId()));
         map.put(object.getId(), object);
         return map.get(object.getId());
     }

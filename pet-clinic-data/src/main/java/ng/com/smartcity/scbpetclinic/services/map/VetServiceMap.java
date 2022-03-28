@@ -4,12 +4,14 @@ import ng.com.smartcity.scbpetclinic.model.Speciality;
 import ng.com.smartcity.scbpetclinic.model.Vet;
 import ng.com.smartcity.scbpetclinic.services.SpecialtyService;
 import ng.com.smartcity.scbpetclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
 
     private final SpecialtyService specialtyService;
