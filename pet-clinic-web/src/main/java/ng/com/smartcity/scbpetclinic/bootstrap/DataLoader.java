@@ -13,7 +13,6 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
-    private final PetService petService;
     private final SpecialtyService specialtyService;
 
     public DataLoader(OwnerService ownerService,
@@ -24,7 +23,6 @@ public class DataLoader implements CommandLineRunner {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
-        this.petService = petService;
         this.specialtyService = specialtyService;
     }
 

@@ -1,8 +1,14 @@
 package ng.com.smartcity.scbpetclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.*;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
@@ -13,11 +19,4 @@ public class Vet extends Person {
     inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Speciality> specialties = new HashSet<>();
 
-    public Set<Speciality> getSpecialties() {
-        return specialties;
-    }
-
-    public void setSpecialities(Set<Speciality> specialities) {
-        this.specialties = specialities;
-    }
 }
