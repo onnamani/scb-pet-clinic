@@ -1,9 +1,6 @@
 package ng.com.smartcity.scbpetclinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +13,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
 }
