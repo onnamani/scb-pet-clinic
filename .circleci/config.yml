@@ -27,6 +27,8 @@ jobs:
             #           fallback to using the latest cache if no exact match is found
             - v1-dpendencies-
 
+      - run: mvn install -DskipTests
+  
       - run: mvn dependency:go-offline
 
       - save_cache:
