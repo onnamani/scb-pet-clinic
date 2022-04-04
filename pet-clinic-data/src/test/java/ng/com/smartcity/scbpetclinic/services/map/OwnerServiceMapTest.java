@@ -2,6 +2,7 @@ package ng.com.smartcity.scbpetclinic.services.map;
 
 import ng.com.smartcity.scbpetclinic.model.Owner;
 import ng.com.smartcity.scbpetclinic.services.PetService;
+import ng.com.smartcity.scbpetclinic.services.PetTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class OwnerServiceMapTest {
 
     @BeforeEach
     void setUp() {
-        petService = new PetServiceMap(new VisitMapService());
+        petService = new PetServiceMap(new VisitMapService(), new PetTypeMapService());
         ownerServiceMap = new OwnerServiceMap(petService);
         ownerServiceMap.save(this.owner);
         ownerServiceMap.save(Owner.builder().id(2L).build());

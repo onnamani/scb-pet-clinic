@@ -1,8 +1,6 @@
 package ng.com.smartcity.scbpetclinic.services.map;
 
-import ng.com.smartcity.scbpetclinic.model.Owner;
 import ng.com.smartcity.scbpetclinic.model.Pet;
-import ng.com.smartcity.scbpetclinic.services.OwnerService;
 import ng.com.smartcity.scbpetclinic.services.PetService;
 import ng.com.smartcity.scbpetclinic.services.PetTypeService;
 import ng.com.smartcity.scbpetclinic.services.VisitService;
@@ -16,9 +14,11 @@ import java.util.*;
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
 
     private final VisitService visitService;
+    private final PetTypeService petTypeService;
 
-    public PetServiceMap(VisitService visitService) {
+    public PetServiceMap(VisitService visitService, PetTypeService petTypeService) {
         this.visitService = visitService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
@@ -37,8 +37,10 @@ public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetS
             throw new RuntimeException("Pet cannot be empty");
         if(object.getId() == null)
             object.setId(this.getNextId());
-        else if(object.getPetType() == null || object.getPetType().getId() == null)
+        else if(object.getPetType() == null)
             throw new RuntimeException("Pet must have a pet type");
+        else if(object.getPetType().getId() == null)
+            object.getPetType().setId(petTypeService.save(object.getPetType()).getId());
         else if(object.getVisits().size() > 0)
             object.getVisits().stream()
                     .filter(visit -> visit.getId() == null)
