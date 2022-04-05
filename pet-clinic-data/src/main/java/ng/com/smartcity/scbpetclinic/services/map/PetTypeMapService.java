@@ -22,10 +22,12 @@ public class PetTypeMapService extends AbstractMapService<PetType, Long> impleme
 
     @Override
     public PetType save(PetType object) {
-        if (object != null && object.getId() == null)
+        if (object == null)
+            throw new RuntimeException("PetType cannot be empty");
+        else if (object.getId() == null)
             object.setId(this.getNextId());
-        else throw new RuntimeException("PetType cannot be empty");
-        map.put(object.getId(), object);
+
+       map.putIfAbsent(object.getId(), object);
         return map.get(object.getId());
     }
 
