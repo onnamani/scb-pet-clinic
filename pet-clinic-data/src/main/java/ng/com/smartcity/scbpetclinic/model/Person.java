@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
@@ -23,8 +22,25 @@ public class Person extends BaseEntity {
 
     public Person(Long id, String firstName, String lastName) {
         super(id);
-        this.firstName = firstName;
+
         this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        if(firstName == null) {
+            this.firstName = firstName;
+            return;
+        }
+        this.firstName = firstName.toUpperCase();
+    }
+
+    public void setLastName(String lastName) {
+        if(lastName == null) {
+            this.lastName = lastName;
+            return;
+        }
+
+        this.lastName = lastName.toUpperCase();
     }
 
 }
