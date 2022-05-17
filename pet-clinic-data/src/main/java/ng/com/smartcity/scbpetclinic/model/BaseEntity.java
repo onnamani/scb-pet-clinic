@@ -21,4 +21,8 @@ public class BaseEntity implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
 }
