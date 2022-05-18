@@ -21,4 +21,16 @@ public class PetType extends BaseEntity {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object petTypeObject) {
+        PetType petType;
+        if (petTypeObject == null)
+            return false;
+        if (petTypeObject instanceof PetType) {
+            petType = (PetType) petTypeObject;
+            return this.getId().equals(petType.getId());
+        }
+        return false;
+    }
+
 }

@@ -27,10 +27,21 @@ public class Owner extends Person {
         this.address = address;
         this.city = city;
         this.telephone = telephone;
-        this.pets = pets;
+
+        if (pets != null)
+            this.pets = pets;
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
+    public boolean hasPet(Pet newPet) {
+        if (pets.size() == 0)
+            return false;
+
+        return pets.stream()
+                .filter(pet -> pet.getName().equalsIgnoreCase(newPet.getName()))
+                .filter(pet -> pet.getPetType().equals(newPet.getPetType()))
+                .anyMatch(pet -> pet instanceof Pet);
+    }
 }
