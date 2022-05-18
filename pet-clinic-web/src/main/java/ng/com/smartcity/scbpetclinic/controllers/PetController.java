@@ -60,10 +60,8 @@ public class PetController {
 
         pet.setOwner(owner);
 
-        if (pet.isNew() && owner.hasPet(pet))
+        if (pet.isNew() && owner.hasPet(pet) && StringUtils.hasLength(pet.getName()))
             result.rejectValue("name", "duplicate", "Pet already exists");
-        else if (pet.getName().length() == 0)
-            result.rejectValue("name", "null", "Pet name cannot be blank");
 
         owner.getPets().add(pet);
 
