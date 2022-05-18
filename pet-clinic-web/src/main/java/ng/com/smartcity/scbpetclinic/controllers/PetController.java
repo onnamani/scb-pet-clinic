@@ -60,10 +60,10 @@ public class PetController {
 
         pet.setOwner(owner);
 
-        if (pet.isNew() && owner.hasPet(pet) && StringUtils.hasLength(pet.getName()))
+        if (pet.isNew() && owner.hasPet(pet))
             result.rejectValue("name", "duplicate", "Pet already exists");
-
-        owner.getPets().add(pet);
+        else if (!StringUtils.hasLength(pet.getName()))
+            result.rejectValue("name", "null", "Name cannot be blank");
 
         if (result.hasErrors()) {
             return CREATE_OR_UPDATE_PET_FORM;
@@ -86,6 +86,9 @@ public class PetController {
                                     @PathVariable Long petId) {
         pet.setId(petId);
         pet.setOwner(owner);
+
+        if (!StringUtils.hasLength(pet.getName()))
+            result.rejectValue("name", "null", "Name cannot be blank");
 
         if (result.hasErrors())
             return CREATE_OR_UPDATE_PET_FORM;
