@@ -41,7 +41,6 @@ public class Owner extends Person {
 
         return pets.stream()
                 .filter(pet -> pet.getName().equalsIgnoreCase(newPet.getName()))
-                .filter(pet -> pet.getPetType().equals(newPet.getPetType()))
                 .anyMatch(pet -> pet instanceof Pet);
     }
 }

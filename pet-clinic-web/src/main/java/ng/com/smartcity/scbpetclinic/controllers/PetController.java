@@ -8,6 +8,7 @@ import ng.com.smartcity.scbpetclinic.services.PetService;
 import ng.com.smartcity.scbpetclinic.services.PetTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -48,21 +49,25 @@ public class PetController {
     @GetMapping("/pets/new")
     public String getPetCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
+        pet.setOwner(owner);
         owner.getPets().add(pet);
         model.addAttribute("pet", pet);
         return CREATE_OR_UPDATE_PET_FORM;
     }
 
     @PostMapping("/pets/new")
-    public String postPetCreationForm(Owner owner, @Valid Pet pet, BindingResult result, Model model) {
+    public String postPetCreationForm(Owner owner, @Valid @ModelAttribute Pet pet, BindingResult result) {
 
-        if(pet.isNew() && owner.hasPet(pet))
+        pet.setOwner(owner);
+
+        if (pet.isNew() && owner.hasPet(pet))
             result.rejectValue("name", "duplicate", "Pet already exists");
+        else if (pet.getName().length() == 0)
+            result.rejectValue("name", "null", "Pet name cannot be blank");
 
         owner.getPets().add(pet);
 
         if (result.hasErrors()) {
-            model.addAttribute(pet);
             return CREATE_OR_UPDATE_PET_FORM;
         }
 
@@ -77,14 +82,16 @@ public class PetController {
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String postPetUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, Model model) {
-        if (result.hasErrors()) {
-            pet.setOwner(owner);
-            model.addAttribute("pet", pet);
-            return CREATE_OR_UPDATE_PET_FORM;
-        }
+    public String postPetUpdateForm(@Valid @ModelAttribute Pet pet,
+                                    BindingResult result,
+                                    Owner owner,
+                                    @PathVariable Long petId) {
+        pet.setId(petId);
+        pet.setOwner(owner);
 
-        owner.getPets().add(pet);
+        if (result.hasErrors())
+            return CREATE_OR_UPDATE_PET_FORM;
+
         petService.save(pet);
         return "redirect:/owners/" + owner.getId();
     }
