@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,9 +35,6 @@ public class PetControllerTest {
 
     @Mock
     PetTypeService petTypeService;
-
-    @Mock
-    BindingResult result;
 
     @InjectMocks
     PetController petController;
